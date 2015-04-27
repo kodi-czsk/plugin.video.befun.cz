@@ -152,9 +152,10 @@ class BefunContentProvider(ContentProvider):
         url = self._url(item['url'])
         data = util.request(self._url(item['url']))	
         data = util.substr(data,'<div class=\"video','</div')
-        sosac = re.search('\"(http\://[\w]+\.sosac\.ph[^\"]+)',data,re.DOTALL)
+        sosac = re.search('\"(http\://[\w]+\.sosac\.[^\"]+)',data,re.DOTALL)
         if sosac:
             sosac = HTMLParser.HTMLParser().unescape(sosac.group(1))
+            self.info("Reading sosac URL "+sosac)
             data = util.request(sosac)
         result = self.findstreams(data,[
             '<embed( )*flashvars=\"file=(?P<url>[^\"]+)',
