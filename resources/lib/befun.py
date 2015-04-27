@@ -130,6 +130,8 @@ class BefunContentProvider(ContentProvider):
             item['title'] = mask % m.group('name')
             item['url'] = prefix+m.group('url')
             result.append(item)
+        # sort this
+        result = sorted(result,key=lambda i:i['title'])
         if prefix == '':
             # when listing movie categories, we also list movies on 'main' page
             return result + self.list_page(page,'<!-- Movies','</section')
