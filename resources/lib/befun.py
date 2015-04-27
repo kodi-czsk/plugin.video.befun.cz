@@ -22,7 +22,7 @@
 
 import re,os,urllib,urllib2,shutil,traceback,cookielib,HTMLParser
 import util,resolver
-from provider import ContentProvider
+from provider import ContentProvider, cached
 
 class BefunContentProvider(ContentProvider):
 
@@ -117,6 +117,7 @@ class BefunContentProvider(ContentProvider):
             result.append(item)
         return result
 
+    @cached()
     def _categories(self,page,url):
         data = util.substr(page,'<ul id=\"menu_kategorie','</ul')
         prefix = ''
