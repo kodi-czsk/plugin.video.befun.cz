@@ -24,6 +24,8 @@ import re,os,urllib,urllib2,shutil,traceback,cookielib,HTMLParser
 import util,resolver
 from provider import ContentProvider, cached
 
+HDRS = {"User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"}
+
 class BefunContentProvider(ContentProvider):
 
     def __init__(self,username=None,password=None,filter=None):
@@ -159,7 +161,7 @@ class BefunContentProvider(ContentProvider):
         if sosac:
             sosac = HTMLParser.HTMLParser().unescape(sosac.group(1))
             self.info("Reading sosac URL "+sosac)
-            data = util.request(sosac)
+            data = util.request(sosac, headers = HDRS)
         result = self.findstreams(data,[
             '<embed( )*flashvars=\"file=(?P<url>[^\"]+)',
             '<embed( )src=\"(?P<url>[^\"]+)',
